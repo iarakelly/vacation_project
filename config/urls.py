@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include #modulo usado pra mapear caminhos (URLs) para views espec.
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), #associa uma URL a uma view específica
+    path('users/', include('users.urls')), #cria a rota e mapeia para uma view
+
+    
 ]
+
