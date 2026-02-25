@@ -71,3 +71,26 @@ class ProfileView(APIView):
         user = request.user
 
         return Response ({"message" : "seus dados", "user": user.username, "email": user.email})
+
+class EditInterestsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+
+        user = request.user
+
+        interest = request.data.get('interest')
+
+        if not interest:
+            return Response({'error' : "interesse é obrigatorio"})
+        
+        user.interest = interest
+        user.save()
+
+        return Response(
+            {
+                "message": "Interesses atualizados",
+                "interest": user.interest
+            },
+            status=status.HTTP_200_OK
+        )
